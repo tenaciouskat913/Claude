@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMP Policy Fact Sheet Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>EMP Policy Fact Sheet Generator</h1>
+      <p class="subtitle">Generate a fact sheet showing how EMP supports any education policy, for any state, territory, or country.</p>
+    </header>
+
+    <div id="error-banner" class="error-banner hidden"></div>
+
+    <form id="generate-form">
+      <div class="field">
+        <label>Policy input</label>
+        <div class="tabs">
+          <button type="button" class="tab-btn active" data-mode="url">Policy URL</button>
+          <button type="button" class="tab-btn" data-mode="text">Paste policy text</button>
+        </div>
+        <input type="url" id="policy_url" name="policy_url" placeholder="https://education.gov.example/policy-page" />
+        <textarea id="policy_text" name="policy_text" rows="8" placeholder="Paste the policy text here..." class="hidden"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="jurisdiction_or_policy_name">Jurisdiction / policy name (optional)</label>
+        <input type="text" id="jurisdiction_or_policy_name" placeholder="e.g. New South Wales, Australia &mdash; Numeracy Strategy 2022" />
+      </div>
+
+      <div class="field">
+        <label for="emp_description">EMP description (editable)</label>
+        <textarea id="emp_description" rows="10">{{ default_emp_description }}</textarea>
+      </div>
+
+      <button type="submit" id="generate-btn">Generate Fact Sheet</button>
+      <span id="spinner" class="spinner hidden">Generating&hellip; this can take up to 30 seconds.</span>
+    </form>
+
+    <section id="preview" class="preview hidden">
+      <h2 id="preview-title"></h2>
+      <p id="preview-subtitle" class="subtitle"></p>
+
+      <h3>Policy Summary</h3>
+      <p id="preview-summary"></p>
+
+      <h3>How EMP Supports This Policy</h3>
+      <ul id="preview-alignment"></ul>
+
+      <h3>Evidence &amp; Outcomes</h3>
+      <p id="preview-evidence"></p>
+
+      <h3>Scope &amp; Considerations</h3>
+      <p id="preview-scope"></p>
+
+      <button type="button" id="download-btn">Download .docx</button>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
